@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Songs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .songs {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .song-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .song {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .song h3 {
+            margin: 0;
+        }
+        .song a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ username }}!</h2>
+        <form action="/home" method="get">
+            <label for="artist">Search by Artist:</label>
+            <input type="text" id="artist" name="artist" required>
+            <input type="hidden" name="username" value="{{ username }}">
+            <input type="hidden" name="token" value="{{ token }}">
+            <button type="submit">Search</button>
+        </form>
+       <div class="songs">
+            {% if songs %}
+            <h3>Songs</h3>
+            <ul class="song-list">
+                {% for song in songs %}
+                <li class="song">
+                    <h3>{{ song.track }}</h3>
+                    <p>Artist: {{ song.artist }}</p>
+                    <p><a href="{{ song.link }}">Listen</a></p>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
